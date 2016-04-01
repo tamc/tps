@@ -1,1 +1,89 @@
-Hello world
+<html>
+  <head> 
+    <title>Tapestry Sucks</title>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style>
+      body {
+        text-align: center;
+      }
+      #hates {
+        position: relative;
+        width: 100%;
+        height: 1000px;
+      }
+      .hate {
+        width: 500px;
+        font-size: 50px;
+        position: absolute;
+        top: 10px;
+      }
+    
+    </style>
+  </head>
+  <body>
+  <p>After using their service for a year, I've had enough.</p>
+  <h1>I hate <a href='https://tapestry.info'>Tapestry</a></h1>
+  <p>I really do. I think you might too.</p>
+  <div id='hates'>
+
+  </div>
+  <p id='#joking' style="display:none"><a href='https://en.wikipedia.org/wiki/April_Fools%27_Day'>Only joking</a></p>
+  <script>
+
+  function hate(message) {
+    var messages = [message];
+
+    var selection = d3.select("#hates").selectAll(".hate")
+      .data(messages, Object);
+
+    selection
+      .enter()
+        .append("div")
+          .attr("class","hate")
+          .style("left", -400)
+          .attr('text-anchor','middle')
+          .text(Object)
+        .transition()
+          .style("left", 200)
+          .duration(1000);
+
+    selection.exit()
+      .transition()
+        .style("left", 2000)
+        .duration(1000)
+      .remove();
+
+  }
+
+  var messages = [
+    "It is suspiciously cheap",
+    "I don't want to be part of anything so popular",
+    "I hate spending more time with the children and less time in the office printing pictures and sticking them in journals",
+    "It is ruining the paper industry",
+    "Parents get involved in their kids' learning",
+    "It doesn't tell me how to do my job",
+    "It isn't a checklist - how am I meant to judge a child's development ?!!?",
+    "I always get through to the same old people on the phone",
+    "They answer the support tickets too quickly"
+  ];
+
+  hate(messages[0]);
+
+  var index = 1;
+
+  setInterval(function() {
+      hate(messages[index]);
+      index++;
+      if(index >= messages.length) { 
+        d3.select("#joking").style("display", "block");
+        d3.shuffle(messages); 
+        index = 0; 
+      }
+  }, 5000);
+
+
+  </script>
+  </body>
+</html>
+
+
